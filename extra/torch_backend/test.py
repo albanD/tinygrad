@@ -13,18 +13,18 @@ else:
 class TestTorchBackend(unittest.TestCase):
   def test_numpy_ones(self):
     a = torch.ones(4, device=device)
-    np.testing.assert_equal(a.cpu().numpy(), [1,1,1,1])
+    np.testing.assert_equal(a.numpy(force=True), [1,1,1,1])
 
-  def test_numpy_ones(self):
+  def test_numpy_ones2(self):
     a = torch.ones(4, dtype=torch.int32, device=device)
     assert a.dtype == torch.int32
-    np.testing.assert_equal(a.cpu().numpy(), [1,1,1,1])
+    np.testing.assert_equal(a.numpy(force=True), [1,1,1,1])
 
   def test_plus(self):
     a = torch.ones(4, device=device)
     b = torch.ones(4, device=device)
     c = a+b
-    np.testing.assert_equal(c.cpu().numpy(), [2,2,2,2])
+    np.testing.assert_equal(c.numpy(force=True), [2,2,2,2])
 
   def test_exp2(qself):
     a = torch.ones(4, device=device)
@@ -35,11 +35,11 @@ class TestTorchBackend(unittest.TestCase):
     a = torch.ones(4, device=device)
     b = torch.ones(4, device=device)
     c = a == b
-    print(c.cpu().numpy())
+    print(c.numpy(force=True))
 
   def test_isfinite(self):
     a = torch.ones(4, device=device)
-    np.testing.assert_equal(torch.isfinite(a).cpu().numpy(), [True, True, True, True])
+    np.testing.assert_equal(torch.isfinite(a).numpy(force=True), [True, True, True, True])
 
   # TODO: why
   def test_str(self):

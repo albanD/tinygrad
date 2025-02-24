@@ -1,9 +1,15 @@
 from PIL import Image
 import torch, torchvision, pathlib
 import torchvision.transforms as transforms
-import extra.torch_backend.backend
-device = "tiny"
-torch.set_default_device(device)
+from tinygrad.helpers import getenv
+
+if getenv("TINY_BACKEND2"):
+  import extra.torch_backend.backend2
+  device = "cpu"
+else:
+  import extra.torch_backend.backend
+  device = "tiny"
+  torch.set_default_device(device)
 
 if __name__ == "__main__":
   img = Image.open(pathlib.Path(__file__).parent.parent.parent / "test/models/efficientnet/Chicken.jpg").convert('RGB')
